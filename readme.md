@@ -10,7 +10,8 @@ Feel free to submit a PR adding a link to your own recaps, guides or reviews!
 
 My [gh-page](https://herminiotorres.github.io/whattheflexbox) by [@herminiotorres](https://twitter.com/herminiotorres)
 
-## Flex
+## Properties for the Parent(flex container)
+
 
 - **flex-direction:**
   ```css
@@ -108,3 +109,92 @@ My [gh-page](https://herminiotorres.github.io/whattheflexbox) by [@herminiotorre
 ***Note:*** The ***gap*** property explicitly controls the space between flex items. It applies that spacing only between items **not on the outer edges.**
 
 The behavior could be thought of as a minimum gutter, as if the gutter is bigger somehow (because of something like justify-content: space-between;) then the gap will only take effect if that space would end up smaller.
+
+
+## Properties for the Children(flex items)
+
+- **order:**
+  ```css
+  .item {
+    order: 5; /* Default is 0*/
+  }
+  ```
+
+  - By default, flex items are laid out in the source order.
+  - We can use *negative* number to push items to the beginning of the container
+
+
+- **flex-grow:**
+  ```css
+  .box {
+    flex-grow: 1; /* Default is 0*/
+  }
+  .box2 {
+    flex-grow: 2; /* Default is 0*/
+  }
+  ```
+
+  - If all items have `flex-grow` set to **1**, the remaining space in the container will be distributed equally to* all children*.
+  - If one of the children-`box2`  has a value of **2**, that one would take up **twice** as much of the space as either one of the others (or it will try, at least).(`1fr 2fr`)
+
+
+
+- **flex-shrink:**
+  ```css
+  .box2 {
+    flex-shrink: 2; /* Default is 1*/
+  }
+  ```
+
+  - This defines the ability for a flex item to shrink if necessary.
+  - `.box2` will shrink 2 times faster than others
+  - Negative numbers are invalid.
+
+
+- **flex-basis:**
+  ```css
+  .box2 {
+    flex-basis: auto; /* Default is auto*/
+  }
+  ```
+
+  - This defines the *default* size of an element before the remaining space is distributed. It can be a length (e.g. 20%, 5rem, etc.) or a keyword. 
+  - *content:* size it based on the item’s content
+
+
+- **flex:**
+  ```css
+  .box {
+  flex: 1; /* Default is: flex: 0 1 auto*/
+  }
+
+  .box3 {
+  flex: 2;
+  } 
+  ```
+  - Most popular one is `flex:1`
+  - In the example all `.box`s same size, but `.box2` 2 times bigger then others
+  - The shorthand for `flex-grow`, `flex-shrink` and `flex-basis `combined.
+  - The **second** and **third** parameters (flex-shrink and flex-basis) are optional. 
+
+```css
+  .box {
+    flex: 1 1 300px;
+  }
+  .box3 {
+    flex: 5 1 100px;
+  }
+```
+  - `.box3` will grow 5 times faster than others. Default base size for `.boz3` will be `100px` 
+
+
+- **align-self:**
+  ```css
+  .box2 {
+     align-self: center;
+  }
+  ```
+
+  - Override the default/given alignment
+  -  Same values with *align-items*: `auto` | `flex-start` | `flex-end` | `center` | `baseline` | `stretch`;
+
