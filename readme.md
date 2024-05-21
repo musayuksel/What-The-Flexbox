@@ -156,6 +156,9 @@ The behavior could be thought of as a minimum gutter, as if the gutter is bigger
   .box2 {
     flex-basis: auto; /* Default is auto*/
   }
+  .box3 {
+    flex-basis: 100px; /* in an ideal container, box3 will be 100px, if there is no extra space, look at the flex-frow*/
+  }
   ```
 
   - This defines the *default* size of an element before the remaining space is distributed. It can be a length (e.g. 20%, 5rem, etc.) or a keyword. 
@@ -178,14 +181,25 @@ The behavior could be thought of as a minimum gutter, as if the gutter is bigger
   - The **second** and **third** parameters (flex-shrink and flex-basis) are optional. 
 
 ```css
-  .box {
-    flex: 1 1 300px;
-  }
-  .box3 {
-    flex: 5 1 100px;
-  }
+/* 
+  .box will take an initial width of 300px, but all .box elements will grow at the same rate to fill extra space because they have the same flex-grow value (1).
+
+  .box3 will take an initial width of 100px. If there is extra space in the container, .box3 will grow 5 times faster than other .box elements due to its flex-grow value of 5.
+
+  When there is not enough space in the container:
+  - .box elements will shrink at half the rate of .box3 due to their flex-shrink value of 1.
+  - .box3 will shrink twice as fast as .box elements due to its flex-shrink value of 2.
+*/
+
+.box {
+  flex: 1 1 300px;
+}
+
+.box3 {
+  flex: 5 2 100px;
+}
+
 ```
-  - `.box3` will grow 5 times faster than others. Default base size for `.boz3` will be `100px` 
 
 
 - **align-self:**
@@ -198,3 +212,14 @@ The behavior could be thought of as a minimum gutter, as if the gutter is bigger
   - Override the default/given alignment
   -  Same values with *align-items*: `auto` | `flex-start` | `flex-end` | `center` | `baseline` | `stretch`;
 
+
+## CSS prefixes
+The most common browser CSS prefixes you will see in older code bases include:
+
+- `-webkit-`(Chrome, Safari, newer versions of Opera and Edge, almost all iOS browsers including Firefox for iOS; basically, any WebKit or Chromium-based browser)
+- `-moz-` (Firefox)
+- `-o-`(old pre-WebKit versions of Opera)
+- `-ms-` (Internet Explorer and Microsoft Edge, before Chromium)
+
+Experimental features in browsers are "*put behind a flag*". This allows developers to change browser configurations to test upcoming features.
+If *autoprefixer* needed we can use libraries such as [gulp!](https://www.npmjs.com/package/gulp-autoprefixer)
